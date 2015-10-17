@@ -1,0 +1,20 @@
+
+LogPath = "logs/log.txt"
+TokenSecret = "unicornsAreAwesome"
+TokenExpiredIn = 1296000 
+
+[App]
+Host = "0.0.0.0"
+Port = 8080
+
+[Database]
+Type = "mysql"
+UserName = "root"
+Password = ""
+Host = "localhost:3307"
+DatabaseName = "codexx"
+LogPath = "logs"
+EnableCache = true
+
+[File]
+UploadPath = "./upload"
