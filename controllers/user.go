@@ -65,7 +65,10 @@ func (u *User) List(c *gin.Context) {
 }
 
 func (u *User) Get(c *gin.Context) {
-	//cu := currentUser(c)
+	if !isGranted(c, "user.list") {
+		c.JSON(403, utils.NewNoAccessPermissionError(""))
+		return
+	}
 	id := paramInt64(c, "id")
 
 	var user models.User
@@ -112,7 +115,10 @@ func (u *User) Active(c *gin.Context) {
 }
 
 func (u *User) Roles(c *gin.Context) {
-	//cu := currentUser(c)
+	if !isGranted(c, "user.active") {
+		c.JSON(403, utils.NewNoAccessPermissionError(""))
+		return
+	}
 	id := paramInt64(c, "id")
 
 	user := models.User{Id: id}

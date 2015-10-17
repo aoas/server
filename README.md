@@ -18,6 +18,46 @@ AOAS是一个快速开发系统模板, 基于角色授权体系.
 ### 调用API
 当客户端调用时, 可以进行login操作拿到 `token`. 并在后续http调用时增加如下header.   
 
+### 基础API
+默认API前缀地址为: `http://localhost:8080/api/...`, 如登陆操作URL为: `http://localhost:8080/api/login`.
+
+##### 登陆/注册
+URL|Method|Description|Permission
+---|------|-----------|----------
+login|POST|登陆
+register|POST|注册账号
+
+##### 用户相关
+URL|Method|Description|Permission
+---|------|-----------|----------
+users|GET|查询用户列表|user.list
+users/{id}|GET|查看指定用户信息|user.get
+users/{id}/active|POST|禁用/启用户用户账号|user.active
+users/{id}/roles|GET|用户角色列表|user.roles
+
+##### 角色/权限相关
+URL|Method|Description|Permission
+---|------|-----------|----------
+roles|GET|查询角色列表|role.list
+roles/{id}|GET|查看指定用户信息|user.get
+roles/{id}/users|GET|角色用户列表|role.users
+roles/{id}/users|POST|增加用户到指定角色|role.adduser
+roles/{id}/users|DELETE|从指定角色删除用户|role.deleteuser
+roles/{id}/permissions|GET|角色可操作的权限列表|role.permissions
+roles/{id}/permissions |POST|增加权限到指定角色|role.addpermission
+roles/{id}/permissions |DELETE|从指定角色删除权限|role.deletepermissions
+> 上面的增加/删除用户时, 需要传用户id列表. 如{"user_ids":[1,22]}. 增/删权限时, 需要传权限id列表, 如: {"permission_ids": ["user.active", "user.roles"]}
+
+##### 文件操作相关
+URL|Method|Description|Permission
+---|------|-----------|----------
+files|GET|查询用户上传文件记录列表|file.list
+files|POST|上传文件(file对象名为`file`)|file.upload
+
+
+### API调用
+从客户端访问时, 有权限检查的API需要传如下header. 下面的token在用户调用`login`登陆后会得到.
+
 ```http
 Authorization: Bearer {{your token}}
 ```
