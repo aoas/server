@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"bitbucket.org/codexx/server/utils"
+	"github.com/aoas/server/utils"
 )
 
 var (

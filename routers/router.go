@@ -1,6 +1,8 @@
 package routers
 
 import (
+	"fmt"
+
 	"github.com/aoas/server/config"
 	"github.com/aoas/server/controllers"
 	"github.com/aoas/server/middlewares"
@@ -27,6 +29,17 @@ func New(engine *xorm.Engine, c config.Config, logger utils.ILogger) (r *gin.Eng
 	account := controllers.Account{base}
 	public.POST("/login", account.Login)
 	public.POST("/register", account.Register)
+	public.GET("/tables", func(c *gin.Context) {
+		x := models.Engine()
+		for _, v := range x.Tables {
+			fmt.Println(v.Name)
+			for _, c := range v.Columns() {
+				fmt.Println(c.Name, c.FieldName, c.MapType)
+			}
+			fmt.Println("\n")
+		}
+
+	})
 
 	userRouter := r.Group("/api/users")
 	userRouter.Use(loginMiddleware)
