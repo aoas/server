@@ -11,10 +11,16 @@ Port = 8080
 Type = "mysql"
 UserName = "root"
 Password = ""
-Host = "localhost:3307"
+Host = "localhost:3306"
 DatabaseName = "codexx"
 LogPath = "logs"
 EnableCache = true
 
 [File]
 UploadPath = "./upload"
+
+[CORS]
+Enable = true
+Origins = "*"
+Headers = "X-Requested-With, Content-Type, Content-Length, Authorization"
+Methods = "GET,POST,PUT,DELETE"

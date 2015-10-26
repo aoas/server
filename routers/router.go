@@ -10,10 +10,20 @@ import (
 	"github.com/aoas/server/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/go-xorm/xorm"
+	"github.com/itsjamie/gin-cors"
 )
 
 func New(engine *xorm.Engine, c config.Config, logger utils.ILogger) (r *gin.Engine, err error) {
-	r = gin.Default()
+
+	r = gin.New()
+	if c.CORS.Enable {
+		options := cors.Config{}
+		options.Origins = c.CORS.Origins
+		options.Methods = c.CORS.Methods
+		options.RequestHeaders = c.CORS.Headers
+		r.Use(cors.Middleware(options))
+
+	}
 	// static
 	r.Static("/files", c.File.UploadPath)
 
@@ -49,6 +59,9 @@ func New(engine *xorm.Engine, c config.Config, logger utils.ILogger) (r *gin.Eng
 	userRouter.GET("/:id", user.Get)
 	userRouter.POST("/:id/active", user.Active)
 	userRouter.GET("/:id/roles", user.Roles)
+
+	// 用token来获取用户, 为防止和用id获取用户信息路由冲突, 固放到跟目录下
+	public.GET("/me", loginMiddleware, user.Me)
 
 	// roles
 	roleRouter := r.Group("/api/roles")

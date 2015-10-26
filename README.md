@@ -20,7 +20,7 @@ AOAS是一个快速开发系统模板, 基于角色授权体系.
 ```http
 Authorization: Bearer DvjoEd6sKbHBLtMvrWWT
 ```
-> Bearer后跟的为你调用login时拿到的token. 注意token和Bearer中间有个空格
+> Bearer后跟的是你调用login时拿到的token. 注意token和Bearer中间有个空格
 
 ### 基础API
 默认API前缀地址为: `http://localhost:3000/api/...`, 如登陆操作URL为: `http://localhost:3000/api/login`.
@@ -67,4 +67,6 @@ files|POST|上传文件(file对象名为`file`)|file.upload
 * [jwt-go](https://github.com/dgrijalva/jwt-go) 生成token相关
 
 ### 工具推荐
-调试调用API时, 我推荐 [Insomnia](http://insomnia.rest/), 整个用下来非常不错. 尤其支持变量及组功能相对有用.
+调试调用API时, 我推荐 [Insomnia](http://insomnia.rest/), 整个用下来非常不错. 尤其支持变量及组功能相对有用. 
+
+

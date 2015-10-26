@@ -81,6 +81,16 @@ func (u *User) Get(c *gin.Context) {
 
 }
 
+func (u *User) Me(c *gin.Context) {
+	cu := currentUser(c)
+	if cu == nil {
+		c.JSON(400, utils.NewLoginRequiredError())
+		return
+	}
+
+	c.JSON(200, cu)
+}
+
 // disable user
 func (u *User) Active(c *gin.Context) {
 	if !isGranted(c, "user.active") {

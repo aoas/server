@@ -110,6 +110,9 @@ func CreateUser(user *User) error {
 	if IsEmailUsed(user.Email) {
 		return fmt.Errorf("email has been used: [email: %s]", user.Email)
 	}
+	if user.Nickname == "" {
+		user.Nickname = user.Username
+	}
 	user.Username = strings.ToLower(user.Username)
 	user.Email = strings.ToLower(user.Email)
 	user.IsActive = true

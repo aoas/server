@@ -39,6 +39,13 @@ type File struct {
 	UploadPath string
 }
 
+type CORS struct {
+	Enable  bool
+	Origins string
+	Methods string
+	Headers string
+}
+
 // 配置主结构
 type Config struct {
 	// Token加密密钥 (AES)
@@ -49,4 +56,5 @@ type Config struct {
 	Database Database
 	App      App
 	File     File
+	CORS     CORS
 }

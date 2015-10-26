@@ -19,6 +19,7 @@ func main() {
 		log.Fatalf("invalid config file - %s", err.Error())
 	}
 
+	fmt.Println("origins :", conf.CORS.Origins)
 	// 创建数据库ORM
 	engine, err := models.CreateEngine(&conf)
 	if err != nil {
@@ -46,6 +47,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("init router failed - %s", err.Error())
 	}
+	// cors
 
 	router.Run(fmt.Sprintf("%s:%d", conf.App.Host, conf.App.Port))
 
